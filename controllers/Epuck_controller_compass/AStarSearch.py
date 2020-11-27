@@ -216,7 +216,8 @@ def Astar_path_find():
     #
     # path_map2 = np.add(path_map,untitled3.mem)
     path_map2 = cv2.resize(path_map, (450, 450), interpolation=cv2.INTER_AREA)
-    #cv2.imshow('Ruta ', path_map2)
+    cv2.imshow('Ruta ', path_map2)
+    cv2.waitKey(30)
     cv2.imwrite('/Photos/Map.png', path_img_p.mem2)
     cv2.imwrite('Photos/Map_rout.png', path_map2)
     cv2.imwrite('Photos/segment.png', path_img_p.img_d)
@@ -272,8 +273,10 @@ def Astar_path_find():
     cv2.circle(color_map, (135, 55), radius=0, color=(255, 0, 0), thickness=10)
     cv2.circle(color_map, (375, 345), radius=0, color=(255, 0, 0), thickness=10)
 
-    #cv2.imshow('color', path_img_p.img)
-    #cv2.imshow('color_map', color_map)
+    cv2.imshow('color', path_img_p.img)
+    cv2.waitKey(30)
+    cv2.imshow('color_map', color_map)
+    cv2.waitKey(30)
     cv2.imwrite('Photos/color_mpa_route.png', path_img_p.img)
     cv2.imwrite('Photos/Mapa_route_color.png', color_map)
     t2 = time.time()
