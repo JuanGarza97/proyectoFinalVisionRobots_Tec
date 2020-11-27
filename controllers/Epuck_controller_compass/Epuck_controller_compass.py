@@ -508,4 +508,4 @@ while robot.step(TIME_STEP) != -1:
     else:
         leerCamino(elCamino.pop(0),elCamino.pop(0))
         cv2.imshow("Real Time", img)
-    cv2.waitKey(30)
+        cv2.waitKey(30)
