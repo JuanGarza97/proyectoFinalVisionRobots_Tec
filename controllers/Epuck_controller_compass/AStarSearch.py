@@ -12,6 +12,7 @@ import numpy as np
 import time
 
 path_flow = []
+dir_pos = []
 
 def Astar_path_find():
     t1 = time.time()
@@ -114,24 +115,7 @@ def Astar_path_find():
     start = (5, 13)
     goal = (35, 37)
     grid.walls = path_img_p.pard_list
-    # grid = SquareGrid(23, 23)
-    # start = (1, 1)
-    # goal = (12, 12)
-    # grid.walls = [(5, 8), (6, 7), (1, 23), (2, 23), (3, 23), (4, 23),
-    #               (5, 23), (6, 23), (7, 23), (8, 23), (1, 22), (2, 22), (3, 22),
-    #               (4, 22), (5, 22), (6, 22), (7, 22), (5, 21), (6, 21), (10, 21),
-    #               (11, 21), (12, 21), (13, 21), (14, 21), (19, 21), (20, 21), (21, 21),
-    #               (9, 20), (15, 20), (19, 20), (20, 20), (21, 20), (3, 19),
-    #               (8, 19), (16, 19), (20, 19), (21, 19), (3, 18), (4, 18), (7, 18), (11, 18), (12, 18), (13, 18), (15, 18),
-    #               (16, 18), (17, 18), (20, 18), (21, 18), (4, 17), (5, 17), (6, 17), (10, 17), (14, 17), (15, 17), (16, 17),
-    #               (17, 17), (20, 17), (21, 17), (1, 16), (5, 16), (9, 16), (20, 16), (21, 16), (8, 15), (12, 15), (20, 15),
-    #               (21, 15), (3, 14), (7, 14), (11, 14), (13, 14), (17, 14), (18, 14), (19, 14), (20, 14), (21, 14), (4, 13),
-    #               (6, 13), (10, 13), (14, 13), (18, 13), (19, 13), (20, 13), (21, 13), (1, 12), (5, 12), (9, 12), (15, 12),
-    #               (19, 12), (21, 12), (2, 11), (6, 11), (14, 11), (18, 11), (3, 10), (7, 10), (13, 10), (17, 10), (4, 9),
-    #               (8, 9), (12, 9), (16, 9), (20, 9), (9, 8), (15, 8), (21, 8), (10, 7), (14, 7), (18, 7), (22, 7), (3, 6),
-    #               (7, 6), (11, 6), (13, 6), (17, 6), (19, 6), (23, 6), (4, 5), (8, 5), (12, 5), (16, 5), (20, 5), (5, 4),
-    #               (9, 4), (13, 4), (15, 4), (21, 4), (6, 3), (10, 3), (14, 3), (18, 3), (3, 2), (17, 2), (18, 2), (19, 2),
-    #               (3, 1), (4, 1), (8, 1), (12, 1), (16, 1), (17, 1), (18, 1), (19, 1), (20, 1), (21, 1), (22, 1), (23, 1)]
+
     grid.draw(goal=goal)
 
     class GridWithWeights(SquareGrid):
@@ -306,38 +290,27 @@ def Astar_path_find():
             comienzo = g_dir_route[i]
             if '^>' == tip_giro:
                 path_flow.append(('giro', 1))
+                dir_pos.append(global_caminos[i])
             elif '>v' == tip_giro:
                 path_flow.append(('giro', 1))
+                dir_pos.append(global_caminos[i])
             elif 'v>' == tip_giro:
                 path_flow.append(('giro', 0))
+                dir_pos.append(global_caminos[i])
             elif '>^' == tip_giro:
                 path_flow.append(('giro', 0))
+                dir_pos.append(global_caminos[i])
             elif '^<' == tip_giro:
                 path_flow.append(('giro', 0))
+                dir_pos.append(global_caminos[i])
             elif '<^' == tip_giro:
                 path_flow.append(('giro', 1))
+                dir_pos.append(global_caminos[i])
+                
     path_flow.append((comienzo, (pasos + 2)))
     path_flow.append(('end', 'baile'))
     tipo, cantidad = path_flow[0]
     path_flow[0] = (tipo, cantidad + 3)
-
-
-    # g_dir_route
-    #star = 0
-    #begin = 0
-    # while begin < len(g_dir_route):
-    #     b_sim = g_dir_route[star]
-    #     pasos =0
-    #     for i in range(begin, len(g_dir_route)):
-    #         if g_dir_route[i] == b_sim:
-    #             pasos +=1
-    #         elif not (g_dir_route[i + 1] == b_sim):
-    #             pasos +=1
-    #             begin = i+1
-    #             path_flow.append(('recto',pasos*px2m))
-    #             #checar la direccion
-    #             if
-    #             break
 
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
