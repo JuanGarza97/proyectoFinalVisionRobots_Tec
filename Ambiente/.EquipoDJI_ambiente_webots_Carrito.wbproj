@@ -5,7 +5,7 @@ sceneTreePerspectives: 000000ff0000000100000002000000c0000000fa01000000020100000
 maximizedDockId: -1
 centralWidgetVisible: 1
 orthographicViewHeight: 1
-textFiles: 2 "controllers/my_controller/svmFindObjectRT.py" "controllers/Epuck_controller_compass/Epuck_controller_compass.py" "controllers/Epuck_controller_compass/path_img_p.py" "controllers/Epuck_controller_compass/AStarSearch.py" "controllers/air_Cam_Controller/air_Cam_Controller.py"
+textFiles: 2 "svmFindObjectRT.py" "controllers/Epuck_controller_compass/Epuck_controller_compass.py" "controllers/Epuck_controller_compass/path_img_p.py" "controllers/Epuck_controller_compass/AStarSearch.py" "controllers/air_Cam_Controller/air_Cam_Controller.py"
 consoles: Console:All:All
 renderingDevicePerspectives: Robot:CAM;1;0.251563;0;0.770745
 renderingDevicePerspectives: e-puck:camera;1;0.295833;0;0

@@ -28,8 +28,8 @@ img_d = cv2.dilate(img_canny, kernel, iterations=1)
 
 # img_d = img_canny
 
-#cv2.imshow('d', img_d)
-
+cv2.imshow('d', img_d)
+cv2.waitKey(30)
 seg = 10
 
 
@@ -67,7 +67,8 @@ def paredes():
                 pard_list.append((i, j))
 
 
-#cv2.imshow('segmt0', mem2) 
+cv2.imshow('segmt0', mem2)
+cv2.waitKey(30)
 paredes()
 cv2.imwrite('Photos/El_org.png', mem2)
 

@@ -452,7 +452,7 @@ def objectRecognition():
         print (prediction)
     
     return prediction
-    #cv2.imshow("Real Time", img)
+    
 
 def actions(prediction):
     if len(prediction) > 0:
@@ -507,4 +507,5 @@ while robot.step(TIME_STEP) != -1:
             break
     else:
         leerCamino(elCamino.pop(0),elCamino.pop(0))
-   
+        cv2.imshow("Real Time", img)
+        cv2.waitKey(30)
