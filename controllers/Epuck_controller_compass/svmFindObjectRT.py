@@ -1,25 +1,34 @@
+# -*- coding: utf-8 -*-
+"""
+@author:Juan Carlos Garza Sánchez A00821522
+José Andrés Miguel Martinez A01653368
+Francisco Cancino Sastré A01730698
+Ian Airy Suárez Barrientos A00818291
+Cristian Palma Martinez A01244565
+"""
+
+
 import cv2
 import mahotas
 import numpy as np
 import pickle
 
-def fd_hu_moments(image):
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    feature = cv2.HuMoments(cv2.moments(image)).flatten()
+def getHuMoments(img):
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    feature = cv2.HuMoments(cv2.moments(img)).flatten()
     return feature
 
-def fd_haralick(image):  # convert the image to grayscale
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+def getHaralick(img):  # convert the image to grayscale
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # compute the haralick texture feature vector
     haralick = mahotas.features.haralick(gray).mean(axis=0)
     return haralick
 
-def fd_histogram(image, mask=None):
+def getHistogram(img, mask=None):
     # convert the image to HSV color-space
-    bins = 256
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     # compute the color histogram
-    hist = cv2.calcHist([image], [0, 1, 2], None, [bins, bins, bins], [0, 256, 0, 256, 0, 256])
+    hist = cv2.calcHist([img], [0, 1, 2], None, [256, 256, 256], [0, 256, 0, 256, 0, 256])
     # normalize the histogram
     cv2.normalize(hist, hist)
     return hist.flatten()
@@ -33,7 +42,7 @@ def toPredict(imag, clf):
     for img in images:
         if img is not None:
             img = cv2.resize(img, (640, 480))
-            X = [(np.hstack([fd_hu_moments(img), fd_haralick(img), fd_hu_moments(img)]))]
+            X = [(np.hstack([getHistogram(img), getHaralick(img), getHuMoments(img)]))]
             prediction = clf.predict(X)
             if len(contours) > 0:
                 if prediction[0] == "circulo":
