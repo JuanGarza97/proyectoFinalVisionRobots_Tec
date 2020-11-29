@@ -13,11 +13,13 @@ import time
 
 path_flow = []
 dir_pos = []
+img_map =[]
 
 def Astar_path_find():
     t1 = time.time()
     import path_img_p
     global path_flow
+    global img_map
     caminos = []
     dir_route = []
     global_caminos = []
@@ -229,7 +231,7 @@ def Astar_path_find():
             if path_map2[i, j] == 255:
                 color_map[i, j, :] = [255, 255, 255]
             elif path_map2[i, j] == 127:
-                color_map[i, j, :] = [0, 0, 255]
+                color_map[i, j, :] = [0, 64, 127]
             else:
                 color_map[i, j, :] = [0, 0, 0]
 
@@ -264,10 +266,10 @@ def Astar_path_find():
         g_dir_route.insert(0, dir_route[jdx])
         global_caminos.insert(0, x(caminos[jdx]))
 
-    cv2.putText(color_map, 'Inicio', org=(125, 45), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
+    cv2.putText(color_map, 'Inicio', org=(125 -40, 45), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
                 fontScale=1, color=(0, 255, 0), thickness=2, lineType=cv2.LINE_AA)
 
-    cv2.putText(color_map, 'Final', org=(360, 385), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
+    cv2.putText(color_map, 'Final', org=(360-40, 385), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
                 fontScale=1, color=(0, 255, 0), thickness=2, lineType=cv2.LINE_AA)
 
     cv2.circle(color_map, (135, 55), radius=0, color=(255, 0, 0), thickness=10)
@@ -281,6 +283,7 @@ def Astar_path_find():
     cv2.imwrite('Photos/Mapa_route_color.png', color_map)
     t2 = time.time()
     print('time in seconds ', t2 - t1)
+    img_map = color_map.copy()
     # A modificar
     pasos = 0
     comienzo = g_dir_route[0]
@@ -312,6 +315,7 @@ def Astar_path_find():
                 
     path_flow.append((comienzo, (pasos + 2)))
     path_flow.append(('end', 'baile'))
+    dir_pos.append((goal[1] * 10, goal[0] * 10))
     tipo, cantidad = path_flow[0]
     path_flow[0] = (tipo, cantidad + 3)
 

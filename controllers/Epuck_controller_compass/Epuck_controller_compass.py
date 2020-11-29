@@ -25,7 +25,7 @@ robot = Robot()
 camera = robot.getCamera("camera")
 camera.enable(TIME_STEP)
 
-filename = 'finalized_model6.sav'
+filename = 'finalized_model8.sav'
 clf = pickle.load(open(filename, 'rb'))
 
 #instanciamos cada led, cuando la función sea llamada recibirá también el argumento 'ledx'
@@ -455,25 +455,34 @@ def objectRecognition():
     
 
 def actions(prediction):
+    global map_fig
+    pos = pixeles_map.pop(0)
     if len(prediction) > 0:
         for p in prediction:
             if 'circulo' in p:
                 actionCircle()
+                color2 = (0, 0, 255)
+                
             elif 'rectangulo' in p:
                 actionRectangle()
+                color2 = (0, 127, 255)
             elif 'estrella' in p:
                 #RobotStatic()
                 actionStar()
+                color2 = (255, 0, 0)
                 RobotStatic()
             elif 'triangulo' in p:
                 actionTriangle()
-            else:
-                reset()
+                color2 = (0, 255, 0)
+            cv2.putText(map_fig, p, org = ((pos[0] - 40),pos[1]), fontFace=cv2.FONT_HERSHEY_SIMPLEX,
+            fontScale=1, color=color2, thickness=2, lineType=cv2.LINE_AA)
     else:
         reset()
         
 elCamino = []
+pixeles_map = []
 llegue = 0
+map_fig =[]
 """
 elCamino=[('^', 12),
      ('giro', 1),
@@ -501,9 +510,15 @@ while robot.step(TIME_STEP) != -1:
     if len(elCamino) <=1:
         if llegue == 0:
             aS.Astar_path_find()
+            pixeles_map = aS.dir_pos
             elCamino = aS.path_flow
+            map_fig = aS.img_map
             llegue = 1
         else:
+            cv2.imshow("Posicion de Objetos", map_fig)
+            cv2.imwrite('Photos/Posicion_de_Objetos.png', map_fig)
+            cv2.waitKey(0)
+            
             break
     else:
         leerCamino(elCamino.pop(0),elCamino.pop(0))
